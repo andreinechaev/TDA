@@ -52,6 +52,36 @@ class TDANetwork(nn.Module):
 
 More examples can be found in the example notebooks.
 
+### Hyperparameters
+
+#### Time Window
+
+The `time_window` parameter plays a critical role in determining how the TDA activation function weighs the influence of input values based on their age. Choosing the right value for time_window can significantly impact the performance of the neural network when dealing with time-series data.
+It directly affects the exponential decay function used to compute the age-based weights for each input value.
+The time_window parameter affects the results in the following ways:
+
+- Emphasis on recent information: A smaller time_window results in a faster decay of the weights associated with older data points. This causes the model to focus more on recent information and less on historical data, which might be useful when recent data is more relevant to the prediction task.
+- Retention of historical information: A larger time_window results in a slower decay of the weights associated with older data points. This causes the model to retain more historical information, which might be useful when the past data points still have a significant influence on the prediction task.
+- Sensitivity to noise and outliers: A smaller time_window might make the model more sensitive to noise and outliers in the input data, as it focuses more on recent data points. Conversely, a larger time_window might make the model more robust to noise and outliers, as it averages the influence of data points over a more extended period.
+
+#### Scaling Factor
+
+A higher scaling_factor will result in larger weights for each time step, which in turn will lead to larger weighted input values before applying the chosen operation (either 'sum' or 'mean') and the clipping mechanism. This could potentially increase the influence of each input value on the output of the TDA activation function.
+
+Conversely, a lower scaling_factor will result in smaller weights for each time step, which will decrease the influence of each input value on the output of the TDA activation function.
+
+The choice of scaling_factor can impact the performance of the neural network, as it determines the magnitude of the weights applied to the input data. It is essential to experiment with different values of scaling_factor to find the optimal balance between emphasizing recent information and diminishing the influence of older data, depending on the specific problem and dataset being used.
+
+#### Max Value (V_max)
+
+It serves as an upper limit for the weighted input values before applying the chosen operation ('sum' or 'mean'). It is used in the clipping step, which ensures that the weighted input values are limited to a specific range, i.e., between 0 and max_value.
+
+The max_value affects the results in the following ways:
+
+- Regularization: By clipping the weighted input values, it can help prevent large output values from dominating the activation function output. This acts as a form of regularization, making the model more robust to outliers and noise in the input data.
+- Non-linearity: Clipping introduces a non-linear behavior into the activation function, which can help the neural network learn complex, non-linear relationships between the input data and the target variable.
+- Gradient saturation: Setting a very low max_value might cause gradient saturation during the backpropagation, as the gradient of the clipped values will be zero. Gradient saturation can slow down the training process and result in a poorly trained model. On the other hand, if the max_value is too high, the clipping mechanism might not have a significant effect on the output values, and the benefits of regularization and non-linearity may be reduced.
+
 ## Advantages and Challenges
 
 **Advantages**:
