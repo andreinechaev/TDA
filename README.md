@@ -32,7 +32,7 @@ import torch
 import torch.nn as nn
 import numpy as np
 
-from tda import TDAActivation
+from tda.tda import TDAActivation
 
 class TDANetwork(nn.Module):
     def __init__(self, input_size, hidden_size, output_size, time_window, max_value, scaling_factor):
@@ -50,13 +50,15 @@ class TDANetwork(nn.Module):
         return x
 ```
 
-More examples can be found in the example notebooks.
+More examples can be found below
 
-### Example Notebooks
+#### Example Notebooks
 
 - [Houshold Power Consumption](tda_time_series.ipynb)
 - [IMDB Sentiment Analysis](nlp.ipynb)
 - [US Unemployment Rate](unemployment_us.ipynb)
+
+> [TDA pacakage](tda/tda.py) contains TDAActivationV2 class wich is an attempt to make TDA more efficient. It is not yet tested and should be used with caution.
 
 ### Hyperparameters
 
