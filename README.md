@@ -52,6 +52,12 @@ class TDANetwork(nn.Module):
 
 More examples can be found in the example notebooks.
 
+### Example Notebooks
+
+- [Houshold Power Consumption](tda_time_series.ipynb)
+- [IMDB Sentiment Analysis](nlp.ipynb)
+- [US Unemployment Rate](unemployment_us.ipynb)
+
 ### Hyperparameters
 
 #### Time Window
