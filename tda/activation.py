@@ -3,7 +3,7 @@ import torch.nn as nn
 import numpy as np
 
 
-class TDAActivation(nn.Module):
+class TDA(nn.Module):
     """
     Temporal Decaying Accumulator (TDA) function
 
@@ -32,7 +32,7 @@ class TDAActivation(nn.Module):
             making the output less sensitive to the presence of multiple inputs within the time window.
             Using the mean can help reduce the impact of outliers and noise in the input data.
         """
-        super(TDAActivation, self).__init__()
+        super(TDA, self).__init__()
         self.time_window = time_window
         self.max_value = max_value
         self.scaling_factor = scaling_factor
@@ -60,7 +60,7 @@ class TDAActivation(nn.Module):
         return self.op(clamped_x, dim=2)
 
 
-class TDAActivationV2(nn.Module):
+class TDAV2(nn.Module):
     """
     Temporal Decaying Accumulator (TDA) function an optimization attempt
     """
@@ -72,7 +72,7 @@ class TDAActivationV2(nn.Module):
         :param scaling_factor: Scaling factor for the exponential decay
         :param op: Operation to perform on the activation. Either "sum" or "mean"
         """
-        super(TDAActivationV2, self).__init__()
+        super(TDAV2, self).__init__()
         self.time_window = time_window
         self.max_value = max_value
         self.scaling_factor = scaling_factor
