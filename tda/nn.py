@@ -26,4 +26,7 @@ class TDAClip(nn.Module):
 
     def forward(self, x):
         clamped_x = torch.clamp(x, min=0, max=self.max_value)
-        return self.op(clamped_x, dim=2)  # Compute the op along the time_window dimension
+        if self.op:
+            return self.op(clamped_x, dim=2) # Compute the op along the time_window dimension
+        else:
+            return clamped_x
